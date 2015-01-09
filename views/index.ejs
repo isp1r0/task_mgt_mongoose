@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/bootstrap/css/bootstrap.min.css' />
+    <script src="/javascripts/jquery-1.11.2.min.js"></script>
+    <script src='/socket.io/socket.io.js'></script>
+    <script>
+    	$(document).ready(function(){
+
+ 
+    	})
+    </script>
+  </head>
+  <body>
+  	
+    <div class='container'>
+    	<div class='row'>
+    		
+	<%		if(my_tasks.length !== 0){ %>
+			<h3>Tasks</h3>
+			<table class='table table-striped'>
+				<thead>
+	    			<th>Tasks</th>
+	    			<th>Priority</th>
+	    			<th>Deadline</th>
+	    			<th>Created</th>
+	    			<th>Actions</th>
+    			</thead>
+    			<tbody>
+    				<% for(i = 0; i < my_tasks.length; i++){ %>
+    					<tr><td> <%= my_tasks[i].task %></td>
+    					<td><%= my_tasks[i].priority %></td>
+    					<td><%= my_tasks[i].deadline %></td>
+    					<td><%= my_tasks[i].created_at %></td>
+    					<td><form action='/users/destroy' method='post'>
+    							<input type='submit' class='btn btn-primary-sm' value='remove'>
+    							<input type='hidden' name='id' value=<%= my_tasks[i]._id %>>
+    						</form>
+    					</td></tr> 
+    				<% } %>
+    			</tbody>
+    		</table>
+    		<%	}   %>
+    	</div>
+
+    	<div class='row'>
+    		<h3>Add a Task</h3>
+    		<form action='/users/create' method='post'>
+    			<p>Task Name: <input type='text' name='task' placeholder='task'></p>
+    			<p>Priority: <select class='form-control' name='priority'>
+    				<option>LOW</option>
+    				<option>MEDIUM</option>
+    				<option>HIGH</option>
+    			</select></p>
+    			<p>Deadline: <input type='date' name='deadline' placeholder='task'></p>
+    			<p><input class='btn btn-default btn-sm' type='submit'></p>
+    		</form>
+    	</div>
+    </div>
+    
+  </body>
+</html>
